@@ -27,7 +27,6 @@ session_start();
             $email = mysqli_real_escape_string($con, $_POST['email']);
             $password = mysqli_real_escape_string($con, $_POST['password']);
         
-            // Kullanıcının e-posta adresine göre veritabanından kullanıcıyı seç
             $result = mysqli_query($con,"SELECT * FROM users WHERE Email='$email' AND Password='$password' ") or die("Select Error");
             $row = mysqli_fetch_assoc($result);        
             if(is_array($row) && !empty($row)){
@@ -45,27 +44,22 @@ session_start();
           }else{
         }
         function checkPasswordStrength($password) {
-            // Şifrenin uzunluğunu kontrol et
             if (strlen($password) < 8) {
                 return false;
             }
         
-            // En az bir büyük harf kontrolü
             if (!preg_match('/[A-Z]/', $password)) {
                 return false;
             }
         
-            // En az bir küçük harf kontrolü
             if (!preg_match('/[a-z]/', $password)) {
                 return false;
             }
         
-            // En az bir sayı kontrolü
             if (!preg_match('/[0-9]/', $password)) {
                 return false;
             }
         
-            // Tüm şartlar sağlandıysa, şifre güçlüdür
             return true;
         }
         
@@ -75,7 +69,6 @@ session_start();
                 $email = $_POST['email'];
                 $password = $_POST['password'];
         
-                // Şifrenin güçlü olup olmadığını kontrol et
                 if (!checkPasswordStrength($password)) {
                     echo "<div class='message'>
                               <p>Şifreniz en az bir büyük harf, bir küçük harf, bir sayı içermeli ve toplamda en az 8 karakter uzunluğunda olmalıdır.</p>
